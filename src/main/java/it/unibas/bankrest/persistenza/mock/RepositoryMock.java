@@ -31,6 +31,7 @@ public class RepositoryMock extends RepositoryGenericoMock {
         c1.getBonifici().add(b1);
         c1.setSaldo(c1.getSaldo() + b1.getImporto());
         u2.getConti().add(c3);
+        super.saveOrUpdate(b1);
         super.saveOrUpdate(u2);
         super.saveOrUpdate(c3);
         super.saveOrUpdate(c1);

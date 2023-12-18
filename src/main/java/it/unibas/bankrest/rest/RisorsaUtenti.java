@@ -1,6 +1,7 @@
 package it.unibas.bankrest.rest;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import it.unibas.bankrest.modello.dto.BonificoDTO;
 import it.unibas.bankrest.modello.dto.ContoDTO;
 import it.unibas.bankrest.modello.dto.UtenteDTO;
 import it.unibas.bankrest.service.ServiceUtenti;
@@ -13,6 +14,7 @@ import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
@@ -44,6 +46,13 @@ public class RisorsaUtenti {
     @SecurityRequirement(name="bearerAuth")
     public List<ContoDTO> getConti(){
         return serviceUtenti.getConti(securityContext.getUserPrincipal().getName());
+    }
+    
+    @GET
+    @Path("/me/{idConto}/bonifici")
+    @SecurityRequirement(name="bearerAuth")
+    public List<BonificoDTO> getBonifici(@NotNull @PathParam("idConto") Long idConto){
+        return serviceUtenti.getBonifici(securityContext.getUserPrincipal().getName(), idConto);
     }
     
 }

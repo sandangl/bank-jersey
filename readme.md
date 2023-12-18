@@ -8,7 +8,7 @@ L'utente inserisce nome utente (email) e password.
 
 ### Utente ottiene dettagli sui suoi conti bancari (OK)
 
-### Utente ottiene dettagli sui bonifici effettuati
+### Utente ottiene dettagli sui bonifici effettuati (OK)
 
 ### Utente crea conto bancario
 

@@ -20,7 +20,7 @@ L'utente richiede di aprire un nuovo conto bancario. Il sistema crea un nuovo co
 
 L'utente richiede una nuova carta specificandone il PIN e il sistema ne crea una da associare al conto scelto.
 
-### Utente imposta un nuovo pin per la carta
+### Utente imposta un nuovo pin per la carta (OK)
 
 L'utente fornisce il codice della carta, il vecchio PIN e quello nuovo.
 

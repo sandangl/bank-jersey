@@ -17,6 +17,7 @@ public class RepositoryMock extends RepositoryGenericoMock {
         Conto c2 = new Conto("IT16B090295404", "Elon", "Musk", 500000);
         Carta ca1 = new Carta("12345", c1);
         ca1.setConto(c1);
+        c1.setCarta(ca1);
         u1.getConti().add(c1);
         u1.getConti().add(c2);
         super.saveOrUpdate(c1);

@@ -2,6 +2,7 @@ package it.unibas.bankrest.rest;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import it.unibas.bankrest.modello.dto.CartaDTO;
+import it.unibas.bankrest.modello.dto.ModificaCartaDTO;
 import it.unibas.bankrest.service.ServiceConti;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
@@ -9,6 +10,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
@@ -35,4 +37,10 @@ public class RisorsaConti {
         return serviceConti.aggiungiCarta(securityContext.getUserPrincipal().getName(), carta, idConto);
     }
     
+    @PUT
+    @Path("/{idConto}/modificaPinCarta")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void modificaPinCarta(@NotNull @Valid ModificaCartaDTO carta,@NotNull @PathParam("idConto") Long idConto){
+        serviceConti.modificaPinCarta(securityContext.getUserPrincipal().getName(), carta, idConto);
+    }
 }

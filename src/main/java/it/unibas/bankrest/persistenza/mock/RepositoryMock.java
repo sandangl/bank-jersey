@@ -5,6 +5,7 @@ import it.unibas.bankrest.modello.Carta;
 import it.unibas.bankrest.modello.Conto;
 import it.unibas.bankrest.modello.Utente;
 import java.time.LocalDateTime;
+import java.time.Month;
 
 public class RepositoryMock extends RepositoryGenericoMock {
 
@@ -26,7 +27,7 @@ public class RepositoryMock extends RepositoryGenericoMock {
         super.saveOrUpdate(u1);
         Utente u2 = new Utente("mzuck@meta.com", "threads", "Mark", "Zuckerberg");
         Conto c3 = new Conto("IT15A0045894503", "Mark", "Zuckerberg", 1000000);
-        Bonifico b1 = new Bonifico(LocalDateTime.now(), 200, "Tie' comprati da mangiare.", c3, c1);
+        Bonifico b1 = new Bonifico(LocalDateTime.of(2023, Month.DECEMBER, 17, 10, 30), 200, "Tie' comprati da mangiare.", c3, c1);
         c3.getBonifici().add(b1);
         c3.setSaldo(c3.getSaldo() - b1.getImporto());
         c1.getBonifici().add(b1);

@@ -1,7 +1,7 @@
 package it.unibas.bankrest.rest;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import it.unibas.bankrest.modello.dto.BonificoDTO;
+import it.unibas.bankrest.modello.dto.BonificoOutDTO;
 import it.unibas.bankrest.modello.dto.ContoDTO;
 import it.unibas.bankrest.modello.dto.UtenteDTO;
 import it.unibas.bankrest.service.ServiceUtenti;
@@ -51,7 +51,7 @@ public class RisorsaUtenti {
     @GET
     @Path("/me/{idConto}/bonifici")
     @SecurityRequirement(name="bearerAuth")
-    public List<BonificoDTO> getBonifici(@NotNull @PathParam("idConto") Long idConto){
+    public List<BonificoOutDTO> getBonifici(@NotNull @PathParam("idConto") Long idConto){
         return serviceUtenti.getBonifici(securityContext.getUserPrincipal().getName(), idConto);
     }
     

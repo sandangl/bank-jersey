@@ -28,6 +28,7 @@ L'utente fornisce il codice della carta, il vecchio PIN e quello nuovo.
 
 L'utente specifica nome, cognome, IBAN del conto destinatario e un importo, insieme ad una causale ed una data. Il sistema trasferisce il denaro dal conto mittente a quello destinatario.
 
+**n.b.:** Un bonifico può essere effettuato solo prima delle 20:00. Il sistema accoglierà tutti i bonifici oltre le ore 20:00 come relativi alle ore 8:00 del giorno successivo.
 *Scenario alternativo:* se nome e cognome non coincidono con quelle specificate nel conto bancario, il sistema segnala l'errore.
 
 ### Utente annulla bonifico

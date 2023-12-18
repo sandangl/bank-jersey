@@ -1,8 +1,9 @@
 package it.unibas.bankrest.service;
 
+import it.unibas.bankrest.modello.Bonifico;
 import it.unibas.bankrest.modello.Conto;
 import it.unibas.bankrest.modello.Utente;
-import it.unibas.bankrest.modello.dto.BonificoDTO;
+import it.unibas.bankrest.modello.dto.BonificoOutDTO;
 import it.unibas.bankrest.modello.dto.ContoDTO;
 import it.unibas.bankrest.modello.dto.UtenteDTO;
 import it.unibas.bankrest.persistenza.DAOFactory;
@@ -11,6 +12,7 @@ import it.unibas.bankrest.persistenza.IDAOUtente;
 import it.unibas.bankrest.util.JWTUtil;
 import it.unibas.bankrest.util.Mapper;
 import jakarta.enterprise.context.ApplicationScoped;
+import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
@@ -38,7 +40,7 @@ public class ServiceUtenti {
         return Mapper.map(utente.getConti(), ContoDTO.class);
     }
 
-    public List<BonificoDTO> getBonifici(String username, Long idConto) {
+    public List<BonificoOutDTO> getBonifici(String username, Long idConto) {
         Utente utente = daoUtente.findByUsername(username);
         if (utente == null) {
             throw new IllegalArgumentException("Username inesistente.");
@@ -50,7 +52,14 @@ public class ServiceUtenti {
         if (utente.getConti().stream().noneMatch(c -> c.getId().equals(selezionato.getId()))) {
             throw new IllegalArgumentException("Conto non associato all'utente.");
         }
-        return Mapper.map(selezionato.getBonifici(), BonificoDTO.class);
+        List<BonificoOutDTO> bonifici = new ArrayList<>();
+        for (Bonifico b : selezionato.getBonifici()) {
+            BonificoOutDTO bonifico = Mapper.map(b, BonificoOutDTO.class);
+            bonifico.setContoA(b.getContoA().getId());
+            bonifico.setContoB(b.getContoB().getId());
+            bonifici.add(bonifico);
+        }
+        return bonifici;
     }
 
     public long apriConto(ContoDTO conto, String username) {

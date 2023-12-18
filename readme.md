@@ -6,7 +6,7 @@
 
 L'utente inserisce nome utente (email) e password.
 
-### Utente ottiene dettagli sui suoi conti bancari
+### Utente ottiene dettagli sui suoi conti bancari (OK)
 
 ### Utente ottiene dettagli sui bonifici effettuati
 

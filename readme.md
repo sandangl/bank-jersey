@@ -16,7 +16,7 @@ L'utente richiede di aprire un nuovo conto bancario. Il sistema crea un nuovo co
 
 *Scenario alternativo:* se il conto possiede generalità diverse da quelle dell'utente, allora il sistema segnala l'errore.
 
-### Utente aggiunge una carta al conto
+### Utente aggiunge una carta al conto (OK)
 
 L'utente richiede una nuova carta specificandone il PIN e il sistema ne crea una da associare al conto scelto.
 

@@ -1,8 +1,10 @@
 package it.unibas.bankrest.modello;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class Carta {
 
     private Long id;

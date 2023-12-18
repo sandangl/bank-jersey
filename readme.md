@@ -10,7 +10,7 @@ L'utente inserisce nome utente (email) e password.
 
 ### Utente ottiene dettagli sui bonifici effettuati (OK)
 
-### Utente crea conto bancario
+### Utente crea conto bancario (OK)
 
 L'utente richiede di aprire un nuovo conto bancario. Il sistema crea un nuovo conto bancario assegnandovi un nuovo IBAN e le generalità fornite dall'utente.
 

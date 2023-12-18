@@ -55,4 +55,12 @@ public class RisorsaUtenti {
         return serviceUtenti.getBonifici(securityContext.getUserPrincipal().getName(), idConto);
     }
     
+    @POST
+    @Path("/me/apriConto")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @SecurityRequirement(name="bearerAuth")
+    public long apriConto(@NotNull @Valid ContoDTO conto){
+        return serviceUtenti.apriConto(conto, securityContext.getUserPrincipal().getName());
+    }
+    
 }

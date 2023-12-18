@@ -18,13 +18,13 @@ public class ServiceUtenti {
 
     IDAOUtente daoUtente = DAOFactory.getInstance().getDaoUtente();
     IDAOConto daoConto = DAOFactory.getInstance().getDaoConto();
-    
+
     public String login(UtenteDTO utente) {
         Utente logging = daoUtente.findByUsername(utente.getUsername());
-        if(logging == null){
+        if (logging == null) {
             throw new IllegalArgumentException("Username inesistente.");
         }
-        if(!logging.getPassword().equals(utente.getPassword())){
+        if (!logging.getPassword().equals(utente.getPassword())) {
             throw new IllegalArgumentException("Password errata.");
         }
         return JWTUtil.generaToken(utente.getUsername());
@@ -32,7 +32,7 @@ public class ServiceUtenti {
 
     public List<ContoDTO> getConti(String username) {
         Utente utente = daoUtente.findByUsername(username);
-        if(utente == null){
+        if (utente == null) {
             throw new IllegalArgumentException("Username inesistente.");
         }
         return Mapper.map(utente.getConti(), ContoDTO.class);
@@ -40,17 +40,42 @@ public class ServiceUtenti {
 
     public List<BonificoDTO> getBonifici(String username, Long idConto) {
         Utente utente = daoUtente.findByUsername(username);
-        if(utente == null){
+        if (utente == null) {
             throw new IllegalArgumentException("Username inesistente.");
         }
         Conto selezionato = daoConto.findById(idConto);
-        if(selezionato == null){
-            throw new IllegalArgumentException("Conto inesistente.");            
+        if (selezionato == null) {
+            throw new IllegalArgumentException("Conto inesistente.");
         }
-        if(utente.getConti().stream().noneMatch(c -> c.getId().equals(selezionato.getId()))){
-            throw new IllegalArgumentException("Conto non associato all'utente.");   
+        if (utente.getConti().stream().noneMatch(c -> c.getId().equals(selezionato.getId()))) {
+            throw new IllegalArgumentException("Conto non associato all'utente.");
         }
-        return Mapper.map(selezionato.getBonifici(),BonificoDTO.class);
+        return Mapper.map(selezionato.getBonifici(), BonificoDTO.class);
+    }
+
+    public long apriConto(ContoDTO conto, String username) {
+        Utente utente = daoUtente.findByUsername(username);
+        if (utente == null) {
+            throw new IllegalArgumentException("Username inesistente.");
+        }
+        if(conto.getId() != null){
+            throw new IllegalArgumentException("L'id non deve essere inizializzato.");            
+        }
+        if (!conto.getNome().equalsIgnoreCase(utente.getNome())
+                || !conto.getCognome().equalsIgnoreCase(utente.getCognome())) {
+            throw new IllegalArgumentException("Il nominativo del correntista non corrisponde.");
+        }
+        if (conto.getSaldo() != 0){
+            throw new IllegalArgumentException("Un nuovo conto non può avere saldo positivo.");            
+        }
+        if (daoConto.findByIban(conto.getIban()) != null){
+            throw new IllegalArgumentException("IBAN già esistente.");            
+        }
+        Conto nuovoConto = Mapper.map(conto, Conto.class);
+        daoConto.makePersistent(nuovoConto);
+        utente.getConti().add(nuovoConto);
+        daoUtente.makePersistent(utente);
+        return nuovoConto.getId();
     }
 
 }
